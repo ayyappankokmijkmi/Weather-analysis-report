@@ -1,0 +1,29 @@
+Min Temp = MIN(Sheet1[MinTemp])
+Max Temp = MAX(Sheet1[MaxTemp])
+MinHumidity3pm = MIN(Sheet1[Humidity3pm])
+MaxHumidity9am = MAX(Sheet1[Humidity9am])
+MaxWS 9am = MAX(Sheet1[WindSpeed9am])
+MinWS 3pm = MIN(Sheet1[WindSpeed3pm])
+MeanAvgHumidity3pm = AVERAGE(Sheet1[Humidity3pm])
+MeanAvgHumidity9am = AVERAGE(Sheet1[Humidity9am])
+MeanAvgTemp3pm = AVERAGE(Sheet1[Temp3pm])
+MeanAvgTemp9am = AVERAGE(Sheet1[Temp9am])
+MeanAvgWindspeed3pm = AVERAGE(Sheet1[WindSpeed3pm])
+MeanAvgWindspeed9am = AVERAGE(Sheet1[WindSpeed9am])
+StdDev MaxTemp = STDEV.P(Sheet1[MaxTemp])
+StdDev Humidity 9am = STDEV.P(Sheet1[Humidity9am])
+StdDev Windspeed 9am = STDEV.P(Sheet1[WindSpeed9am])
+Median Humidity 3pm = MEDIANX(Sheet1,Sheet1[Humidity3pm])
+Median MaxTemp = MEDIANX(Sheet1,Sheet1[MaxTemp])
+Median Windspeed 9am = MEDIANX(Sheet1,Sheet1[WindSpeed9am])
+
+
+ModeTemperature = 
+VAR AllTemperatures = VALUES('YourTable'[Temperature])
+RETURN
+IF(
+    COUNTROWS(FILTER(AllTemperatures, CALCULATE(COUNTROWS('YourTable'), 'YourTable'[Temperature] = 'YourTable'[Temperature])) = MAXX(AllTemperatures, CALCULATE(COUNTROWS('YourTable'), 'YourTable'[Temperature] = 'YourTable'[Temperature])))
+    && COUNTROWS(AllTemperatures) > 1,
+    'YourTable'[Temperature],
+    BLANK()
+)
